@@ -60,7 +60,7 @@ npm install
 
 # 🔑 Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root (please contact developer at jingjingwang.work01@gmail.com to obtain a demo version of .env file):
 
 ```
 GOOGLE_CLIENT_ID=your-client-id

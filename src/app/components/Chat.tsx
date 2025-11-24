@@ -118,15 +118,25 @@ export default function Chat({ onEventUpdated }: ChatProps) {
 
   return (
     <div className="flex flex-col w-full max-w-md h-[95vh] bg-white rounded-2xl shadow-xl overflow-hidden">
-      <div className="flex items-center gap-3 p-4 border-b">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-semibold">
-          AI
-        </div>
-        <div>
-          <div className="font-semibold">Calendar Assistant</div>
-          <div className="text-xs text-gray-500">Ask me to create, edit or delete events</div>
-        </div>
-      </div>
+<div className="flex items-center justify-between p-4 border-b">
+  {/* Left side (avatar + title) */}
+  <div className="flex items-center gap-3">
+    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-semibold">
+      AI
+    </div>
+    <div>
+      <div className="font-semibold">Calendar Assistant</div>
+      <div className="text-xs text-gray-500">Ask me to create, edit or delete events</div>
+    </div>
+  </div>
+
+<button
+  className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+  onClick={clearChat}
+>
+  Clear Chat
+</button>
+</div>
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((m, i) => (
@@ -201,13 +211,6 @@ export default function Chat({ onEventUpdated }: ChatProps) {
   aria-label="Message"
 />
 
-
-  <button
-    className="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-300 transition"
-    onClick={clearChat}
-  >
-    Clear
-  </button>
 
   <button
     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"

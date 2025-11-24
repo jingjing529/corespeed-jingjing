@@ -12,8 +12,8 @@ interface GoogleCalendarProps {
 export default function GoogleCalendar({
   refreshKey = 0,
 }: GoogleCalendarProps) {
-  const calendarId = process.env.GOOGLE_CALENDAR_ID || "";
-  const timezone = process.env.TIME_ZONE || "UTC";
+  const calendarId = process.env.GOOGLE_CALENDAR_ID || "jingjw23@uci.edu";
+  const timezone = process.env.TIME_ZONE || "America/Los_Angeles";
   const view = "week";
   const [src, setSrc] = useState(
     `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(

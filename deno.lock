@@ -1632,6 +1632,26 @@
     "dependencies": [
       "jsr:@corespeed/zypher@~0.5.1",
       "npm:rxjs-for-await@1"
-    ]
+    ],
+    "packageJson": {
+      "dependencies": [
+        "npm:@tailwindcss/postcss@4",
+        "npm:@types/node@^20.19.25",
+        "npm:@types/react-dom@19",
+        "npm:@types/react@19",
+        "npm:eslint-config-next@16.0.3",
+        "npm:eslint@9",
+        "npm:googleapis@166",
+        "npm:next-auth@^4.24.13",
+        "npm:next@16.0.3",
+        "npm:open@11",
+        "npm:react-dom@19.2.0",
+        "npm:react@19.2.0",
+        "npm:rxjs-for-await@1",
+        "npm:tailwindcss@4",
+        "npm:ts-node@^10.9.2",
+        "npm:typescript@^5.9.3"
+      ]
+    }
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Chat from "./Chat";
+import Chat from "../../../Chat";
 import GoogleCalendar from "./GoogleCalendar";
 
 export default function CalendarPage() {
@@ -12,7 +12,7 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 p-4 gap-4">
+    <div className="flex flex-col md:flex-row max-h-screen bg-gray-100 p-4 gap-4">
       <div className="flex-1 max-w-md">
         <Chat onEventUpdated={handleEventInserted} />
       </div>

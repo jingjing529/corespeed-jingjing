@@ -29,6 +29,14 @@ export default function Chat({ onEventUpdated }: ChatProps) {
     setMessages([intro]);
   }, []);
 
+  const clearChat = () => {
+    const intro: Message = {
+      role: "assistant",
+      text: "👋 Hi! I'm your smart Calendar Assistant.\n\nI can create, update, or delete Google Calendar events for you automatically.\nJust tell me what you'd like to do!",
+    };
+    setMessages([intro]);
+  };
+
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -109,7 +117,7 @@ export default function Chat({ onEventUpdated }: ChatProps) {
     t ? t.split("\n").map((line, i) => <div key={i}>{line}</div>) : null;
 
   return (
-    <div className="flex flex-col w-full max-w-md h-[80vh] bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div className="flex flex-col w-full max-w-md h-[95vh] bg-white rounded-2xl shadow-xl overflow-hidden">
       <div className="flex items-center gap-3 p-4 border-b">
         <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white font-semibold">
           AI
@@ -184,23 +192,32 @@ export default function Chat({ onEventUpdated }: ChatProps) {
       </div>
 
       <div className="p-3 border-t flex items-center gap-2">
-        <input
-          type="text"
-          className="flex-1 border border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
-          placeholder="Try: 'Schedule meeting tomorrow at 10am with Alice'"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          aria-label="Message"
-        />
-        <button
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-          onClick={sendMessage}
-          aria-label="Send"
-        >
-          Send
-        </button>
-      </div>
+  <input
+    type="text"
+    className="flex-1 border border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
+    placeholder="Try: 'Schedule meeting tomorrow at 10am with Alice'"
+    value={input}
+    onChange={(e) => setInput(e.target.value)}
+    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+    aria-label="Message"
+  />
+
+  <button
+    className="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-300 transition"
+    onClick={clearChat}
+  >
+    Clear
+  </button>
+
+  <button
+    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+    onClick={sendMessage}
+    aria-label="Send"
+  >
+    Send
+  </button>
+</div>
+
 
       {/* scoped styles for typing animation */}
       <style jsx>{`

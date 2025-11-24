@@ -34,9 +34,6 @@ await agent.mcp.registerServer({
 
 console.log("🔥 Zypher Agent initialized.");
 
-// -----------------------------
-// 🚀 Only REST API (no static files)
-// -----------------------------
 Deno.serve(async (req) => {
   const url = new URL(req.url);
 

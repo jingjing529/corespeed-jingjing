@@ -192,15 +192,15 @@ export default function Chat({ onEventUpdated }: ChatProps) {
       </div>
 
       <div className="p-3 border-t flex items-center gap-2">
-  <input
-    type="text"
-    className="flex-1 border border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
-    placeholder="Try: 'Schedule meeting tomorrow at 10am with Alice'"
-    value={input}
-    onChange={(e) => setInput(e.target.value)}
-    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-    aria-label="Message"
-  />
+<textarea
+  className="flex-1 border border-gray-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-300 resize-y min-h-[40px] max-h-[150px]"
+  placeholder="Try: 'Schedule meeting tomorrow at 10am with Alice'"
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), sendMessage())}
+  aria-label="Message"
+/>
+
 
   <button
     className="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-300 transition"

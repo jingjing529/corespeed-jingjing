@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "eventId": "83f24bm0uj6ipg3ugugbdiv8m0",
+    "event": {
+      "summary": "Walk Dog",
+      "description": "Dog walking",
+      "start": {
+        "dateTime": "2025-11-25T05:00:00",
+        "timeZone": "America/Los_Angeles"
+      },
+      "end": {
+        "dateTime": "2025-11-25T06:00:00",
+        "timeZone": "America/Los_Angeles"
+      }
+    },
+    "createdAt": "2025-11-24T11:04:54.505Z"
+  },
+  {
+    "eventId": "eb9cu1bfa9rhe46a48h821r1is",
+    "event": {
+      "summary": "Rest Time",
+      "description": "Personal rest and relaxation time",
+      "start": {
+        "dateTime": "2025-11-27T12:00:00",
+        "timeZone": "America/Los_Angeles"
+      },
+      "end": {
+        "dateTime": "2025-11-27T16:00:00",
+        "timeZone": "America/Los_Angeles"
+      }
+    },
+    "createdAt": "2025-11-24T11:07:56.793Z"
+  },
+  {
+    "eventId": "nujjj45a0dnjargt5torv15if4",
+    "event": {
+      "summary": "Dentist Appointment",
+      "description": "Dental appointment",
+      "start": {
+        "dateTime": "2025-11-26T15:00:00",
+        "timeZone": "America/Los_Angeles"
+      },
+      "end": {
+        "dateTime": "2025-11-26T16:00:00",
+        "timeZone": "America/Los_Angeles"
+      }
+    },
+    "createdAt": "2025-11-24T11:08:39.166Z"
+  }
+]

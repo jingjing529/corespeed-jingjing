@@ -1,49 +1,78 @@
 import { NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
 
 export async function POST(req: Request) {
-  const { message } = await req.json(); // client can send timezone
-const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  try {
+    const { message } = await req.json();
 
-  const today = new Date();
-  const todayDate = today.toISOString().split("T")[0]; // YYYY-MM-DD
+    // Get user's local timezone
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "America/New_York";
+    const today = new Date();
+    const todayDate = today.toISOString().split("T")[0]; // YYYY-MM-DD
 
-  // Modify your prompt so the agent ONLY returns the event object
-  const prompt = `You are an assistant creating a Google Calendar event.
-Use the user's local timezone: ${timezone || "America/New_York"}.
+    // Load events.json (if exists)
+    const eventsFile = path.join(process.cwd(), "events.json");
+    let eventsData: any[] = [];
+    if (fs.existsSync(eventsFile)) {
+      const content = fs.readFileSync(eventsFile, "utf-8");
+      eventsData = JSON.parse(content);
+      console.log("Loaded events data:", eventsData);
+    }
+    const eventsDataString = JSON.stringify(eventsData, null, 2); // pretty print for readability
+
+
+    // AI prompt: handle insert/edit/delete automatically
+    const prompt = `
+You are a smart Google Calendar assistant. Greet the user first.
+You can insert, edit, or delete events. Always ask for clarification if needed
+(e.g., event name, description, start/end time). 
+
+Use the user's local timezone: ${timezone}.
 Use today's date: ${todayDate}.
+The events you can refer to is only in ${eventsDataString} to find eventIds for edits or deletes.
 
-When the user asks you to create a Google Calendar event, respond with ONLY a JSON object representing the event, without any extra text or explanation. 
-
-Example JSON format:
+Return **only valid JSON** in the following format:
 
 {
-  "summary": "Meeting",
-  "description": "Scheduled meeting",
-  "start": { "dateTime": "...", "timeZone": "${timezone || "America/New_York"}" },
-  "end": { "dateTime": "...", "timeZone": "${timezone || "America/New_York"}" }
+  "action": "insert | edit | delete",
+  "message": "Assistant message to display to user",
+  "event": { ... },       // For insert or edit
+  "eventId": "...",       // For edit or delete
 }
 
+Return valid times, names, and descriptions based on the user's request.
 User request: ${message}
-Return only valid JSON, no explanations, no code blocks.
 `;
 
-  // Call your Deno Zypher server
-  const res = await fetch("http://localhost:8000/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: prompt }),
-  });
+    // Call Deno Zypher server
+    const res = await fetch("http://localhost:8000/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: prompt }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  // Parse JSON safely
-  let event = null;
-  try {
-    event = JSON.parse(data.reply);
-    console.log("Parsed event:", event);
-  } catch (err) {
-    console.error("Failed to parse event JSON:", err, data.reply);
+    // Parse JSON safely
+    let output = null;
+    try {
+      output = JSON.parse(data.reply);
+      console.log("Parsed output:", output);
+    } catch (err) {
+      console.error("Failed to parse JSON:", err, data.reply);
+      output = { action: "unknown", message: data.reply, event: null, eventId: null, requestBody: null };
+    }
+
+    return NextResponse.json(output);
+  } catch (err: any) {
+    console.error("Message route error:", err);
+    return NextResponse.json({
+      action: "unknown",
+      message: "Error processing your request",
+      event: null,
+      eventId: null,
+      requestBody: null,
+    });
   }
-
-  return NextResponse.json({ event });
 }
